@@ -18,6 +18,9 @@ class IntroSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IntroCircleImageBox(),
+                SizedBox(
+                  height: 20,
+                ),
                 IntroText(),
               ],
             )

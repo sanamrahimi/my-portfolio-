@@ -44,11 +44,12 @@ class AboutMeSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
-           AppStrings.aboutMeMsg,
+            AppStrings.aboutMeMsg,
             style: AppStyles.s18,
           ),
         ),
         const SizedBox(height: 20),
+
         // Apps / Projects Summary
         _buildCard(
           icon: Icons.apps,
@@ -58,6 +59,7 @@ class AboutMeSection extends StatelessWidget {
           'Successfully developed, tested, and launched five live Flutter applications with Firebase integration and responsive designs.',
         ),
         const SizedBox(height: 20),
+
         // Skills Section
         _buildSkillsSection(),
       ],
@@ -85,8 +87,10 @@ class AboutMeSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: AppStyles.s24.copyWith(color: AppColors.primaryColor)),
+                Text(
+                  title,
+                  style: AppStyles.s24.copyWith(color: AppColors.primaryColor),
+                ),
                 const SizedBox(height: 4),
                 Text(description, style: AppStyles.s18, maxLines: 4),
               ],
@@ -103,28 +107,47 @@ class AboutMeSection extends StatelessWidget {
       'State Management', 'UI/UX Design', 'Git', 'Adobe Suite'
     ];
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.primaryLight,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Wrap(
-        spacing: 6,
-        runSpacing: 6,
-        children: skills.map((skill) => _buildSkillButton(skill)).toList(),
-      ),
-    );
-  }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int crossAxisCount;
 
-  Widget _buildSkillButton(String label) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 140),
-      child: CustomButtonExp(
-        label: label,
-        backgroundColor: AppColors.primaryColor,
-        onPressed: () {},
-      ),
+        if (constraints.maxWidth > 900) {
+          // Desktop / Large screen → All skills in one row
+          crossAxisCount = skills.length;
+        } else if (constraints.maxWidth > 600) {
+          // Tablet → 3 per row
+          crossAxisCount = 3;
+        } else {
+          // Mobile → 2 per row
+          crossAxisCount = 2;
+        }
+
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.primaryLight,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              childAspectRatio: 3, // Button aspect ratio
+            ),
+            itemCount: skills.length,
+            itemBuilder: (context, index) {
+              return CustomButtonExp(
+                label: skills[index],
+                backgroundColor: AppColors.primaryColor,
+                onPressed: () {},
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

@@ -30,7 +30,7 @@ class IntroText extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              AppStrings.firstName + " " + AppStrings.lastName,
+              AppStrings.firstName + " " + AppStrings.lastName + ",",
               style: context.width < DeviceType.ipad.getMaxWidth()
                   ? AppStyles.s24
                   : AppStyles.t52,
