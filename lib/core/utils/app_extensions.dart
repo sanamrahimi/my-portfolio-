@@ -52,7 +52,7 @@ extension DeviceTypeExtension on DeviceType {
       case DeviceType.largeScreenDesktop:
         return 1200;
       case DeviceType.extraLargeTV:
-        return 3840; // any number more than 1200
+        return 3840;
     }
   }
 }

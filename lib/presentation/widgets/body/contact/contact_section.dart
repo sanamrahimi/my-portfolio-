@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:protfolio_project/core/utils/app_extensions.dart';
+import 'package:portfolio_project/core/utils/app_extensions.dart';
 import '../../../../core/utils/app_enums.dart';
 import 'contact_intro.dart';
 import 'contact_form.dart';
